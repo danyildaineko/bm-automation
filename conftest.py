@@ -5,6 +5,8 @@ from selenium.webdriver import ChromeOptions
 from selenium.webdriver import FirefoxOptions
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
+from pages.base_page import BasePage
+from selenium.webdriver.common.by import By
 
 
 def pytest_addoption(parser):
@@ -96,3 +98,4 @@ def driver(request, config):
 
     request.addfinalizer(tear_down)
     yield driver
+    

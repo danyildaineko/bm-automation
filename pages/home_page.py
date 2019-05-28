@@ -19,11 +19,19 @@ class HomePage(BasePage):
         return BetslipFragment(self._driver)
 
     @allure.step
-    def login(self, user):
-        # click login button
-        # enter login
-        # enter password
-        # click button
-        super()
-        pass
+    def add_tickets_from_soon(self, count):
+        markets = super().get_elements(self._all_unselected_markets)[:count]
+        for each in markets:
+            each.click()
+        return BetslipFragment(self._driver)
+            
+
+    @allure.step
+    def make_valid_bets(self, count):
+        betslip = self.add_tickets_from_soon(count)
+        betslip.set_all_amounts('0.001')
+        betslip.place_bet()
+        assert betslip.is_bet_accepted()
+        return BetslipFragment(self._driver)
+
 
